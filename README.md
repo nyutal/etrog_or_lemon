@@ -1,10 +1,10 @@
 # Etrog Or Lemon
 
 ## Dataset Creation  
-
-1. prerequest:
-   - googleimagesdownload
-   - chromedriver
-   - selenium
-1. type:  
-  `source scripts/download_dataset.sh`
+  - Downloaded with googleimagesdownload (chromedriver, selenium needed as well).  
+  - Filtered incorrect images
+  - Download logs under `dataset_download_logs`
+  - New dataset can be generated with:
+    `source scripts/download_dataset.sh`
+ 
+ ## Training
