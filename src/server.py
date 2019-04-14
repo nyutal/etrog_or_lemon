@@ -10,6 +10,7 @@ import uvicorn
 import aiohttp
 import asyncio
 
+
 app = Starlette()
 
 classes = ['etrog', 'lemon']
@@ -75,3 +76,9 @@ async def classify_url(request):
 if __name__ == "__main__":
     if "serve" in sys.argv:
         uvicorn.run(app, host="0.0.0.0", port=80)
+    if "heroku" in sys.argv:
+        import os
+        port = int(os.environ['PORT'])
+        print(f'serve on port {port}')
+        uvicorn.run(app, host="0.0.0.0", port=port)
+

@@ -1,1 +1,1 @@
-web: python src/server.py serve
+web: python src/server.py heroku
