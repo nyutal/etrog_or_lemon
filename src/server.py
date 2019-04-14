@@ -13,7 +13,7 @@ import asyncio
 app = Starlette()
 
 classes = ['etrog', 'lemon']
-data = ImageDataBunch.single_from_classes(Path('dummy'), classes)
+data = ImageDataBunch.single_from_classes(Path('dummy'), classes).normalize(imagenet_stats)
 model = cnn_learner(data, models.resnet34)
 model.load('../../output_models/resnet_34_bs_32_size_224_with_flip_tfs.bin')
 
@@ -30,6 +30,7 @@ def predict_image_from_bytes(bytes):
     print('predict_image_from_bytes()')
     img = open_image(BytesIO(bytes))
     _, class_, losses = model.predict(img)
+    print(f'class, loss: {class_}, {losses}')
     return JSONResponse({
         "prediction": classes[class_.item()],
         "scores": sorted(
