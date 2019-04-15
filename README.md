@@ -17,3 +17,12 @@
     `pip install .` 
   - Run server:  
     `python src/server.py serve`
+
+## Heroku
+  - create heroku project. needs custom buildpack in order to reduce sludge:  
+    `heroku create etrog-or-lemon --buildpack https://github.com/nyutal/heroku-buildpack-python-etrog-or-lemon.git`  
+    (Actually it doesn't true, I overcome the sludge issue by changing the torch requirement to non-gpu smaller version, but it was a good practice...)
+  - push the project:  
+    `git push heroku master`
+    Right now it doesn't work on free dyno (heroku container) due memory violation...
+  
