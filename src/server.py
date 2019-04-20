@@ -29,6 +29,7 @@ async def get_bytes(url):
 def predict_image_from_bytes(bytes):
     print('predict_image_from_bytes()')
     img = open_image(BytesIO(bytes))
+    print(type(img))
     _, class_, losses = model.predict(img)
     print(f'class, loss: {class_}, {losses}')
     return JSONResponse({
