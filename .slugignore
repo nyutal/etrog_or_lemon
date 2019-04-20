@@ -1,4 +1,5 @@
 dataset_download_logs
 dataset.zip
 output_models/resnet_34_bs_32_size_224_stage_1.bin.pth
+output_models/resnet_34_bs_32_size_224_with_flip_tfs.bin.pth
 nbs
