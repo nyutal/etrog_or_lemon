@@ -1,9 +1,9 @@
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse, HTMLResponse, RedirectResponse
-from fastai.vision import load_learner, open_image
+from fastai.vision import load_learner, open_image, BytesIO
 import torch
 from pathlib import Path
-from io import BytesIO
+#from io import BytesIO
 import sys
 import uvicorn
 import aiohttp
@@ -15,7 +15,7 @@ app = Starlette()
 #classes = ['etrog', 'lemon']
 #data = ImageDataBunch.single_from_classes(Path('dummy'), classes).normalize(imagenet_stats)
 #model = cnn_learner(data, models.resnet34)
-model = load_learner = ('../../output_models', 'resnet_34_bs_32_size_224_with_flip_tfs.bin')
+model = load_learner('./output_models', 'resnet_34_bs_32_size_224_with_flip_tfs.pkl')
 
 
 async def get_bytes(url):
@@ -30,15 +30,11 @@ def predict_image_from_bytes(bytes):
     print('predict_image_from_bytes()')
     img = open_image(BytesIO(bytes))
     print(type(img))
-    _, class_, losses = model.predict(img)
-    print(f'class, loss: {class_}, {losses}')
+    res, class_, losses = model.predict(img)
+    print(f'res, class, loss: {type(res)}, {res}, {class_}, {losses}')
     return JSONResponse({
-        "prediction": classes[class_.item()],
-        "scores": sorted(
-            zip(model.data.classes, map(float, losses)),
-            key=lambda p: p[1],
-            reverse=True
-        )
+        "prediction": str(res),
+        "probability": float(losses[class_]),
     })
 
 
